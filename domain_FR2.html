@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Greenly - Parc naturel régional des Ballons des Vosges</title>
+    <link rel="shortcut icon" href="assets/images/logo/logoW.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="assets/fonts/config.css">
+    <link rel="stylesheet" href="src/style.css">
+    <script src="src/functions.js"></script>
+    
+</head>
+<body class="domein_blad">
+    <div id="noacces">
+        <img src="assets/images/icon/smallscreen.png" alt="">
+        <h1>scherm te klein :(</h1>
+        <p>Helaas, deze pagina werkt het beste op grotere schermen. Probeer het op een desktop of tablet!</p>
+    </div>
+      
+    <header>
+        <a class="logo" href="index.html">
+            <img src="assets/images/logo/logob.png" alt="logo Greenly">
+        </a>
+        <nav>
+            <div class="tops show_small">
+                <a class="logo" href="index.html">
+                    <img src="assets/images/logo/logob.png" alt="logo Greenly">
+                </a>
+                <button onclick="hidenav()" class="show_small dropdown_menu"><img src="assets/images/icon/close.png" alt=""></button>
+            </div>
+            <a class="show_small" href="index.html">Home</a>
+            <a href="areas.html">Gebieden</a>
+            <a href="activeties.html">Activiteiten</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <button class="dropdown_menu" onclick="shownav()"><img src="assets/images/icon/menu.png" alt=""></button>
+    </header>
+
+
+    <div class="intro">
+        <img class="banner" src="assets/images/domeinen/fr2/banner.jpg" alt="">
+        <div class="info">
+            <h1>Parc naturel régional des Ballons des Vosges</h1>
+            <address><strong>Adres:</strong> Parc naturel régional des Ballons des Vosges, Grand Est, Frankrijk</address>
+            <div class="opening">
+                <p><strong>Openingstijden:</strong></p>
+                <ul>
+                    <li><span>Maandag:</span> 08:00 - 19:00</li>
+                    <li><span>Dinsdag:</span> 08:00 - 19:00</li>
+                    <li><span>Woensdag:</span> 08:00 - 19:00</li>
+                    <li><span>Donderdag:</span> 08:00 - 19:00</li>
+                    <li><span>Vrijdag:</span> 08:00 - 19:00</li>
+                    <li><span>Zaterdag:</span> 08:00 - 19:00</li>
+                    <li><span>Zondag:</span> 08:00 - 19:00</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="about">
+        <div class="titlebox">
+            <div class="line"></div><h2>Over het domein</h2><div class="line"></div>
+        </div>
+        <p>Het Parc naturel régional des Ballons des Vosges biedt een schitterende mix van natuurlijke schoonheid en outdoor activiteiten. Ontdek de indrukwekkende bergen, weelderige bossen en schilderachtige valleien die perfect zijn voor wandelen, mountainbiken en natuurbeleving. Dit domein biedt een unieke gelegenheid om de Franse natuur in zijn puurste vorm te ervaren.</p>
+    </div>
+    <div class="special">
+        <h2>Wat maakt dit domein nu zo speciaal?</h2>
+        <ul>
+            <li><strong>Imposante Bergen</strong> Verken de iconische Ballons des Vosges, met zijn majestueuze bergen en panoramische uitzichten.</li>
+            <li><strong>Rijke Flora en Fauna</strong> Ontdek de diverse plant- en diersoorten in de uitgestrekte bossen en graslanden van het park.</li>
+            <li><strong>Charmante Dorpjes</strong> Ervaar de authentieke charme van de lokale dorpen en geniet van regionale specialiteiten in een schilderachtige setting.</li>
+        </ul>
+    </div>
+    
+    <div class="activeties">
+        <h2>Komende activiteiten in dit domein</h2>
+        <div class="activities-container">
+        </div>
+    </div>
+    
+
+    <script>
+        function loadin_activities() {
+            const activitiesContainer = document.querySelector('.activities-container');
+            const now = new Date();
+    
+            // HTML-structuur voor activiteiten
+            let activitiesHTML = '';
+    
+    
+            // Activiteiten sorteren in de juiste secties
+            activities.forEach(activity => {
+                // Zorg ervoor dat locatiecontrole juist is
+                const targetLocation = 'frankrijk - parc naturel régional des ballons des vosges';
+                if (activity.location.toLowerCase().includes(targetLocation)) {
+                    const activityDate = new Date(activity.date);
+                    const activityHTML = `
+                        <div class="activity-card">
+                            <div class="feature_icons">
+                                ${activity.lunch ? '<img src="assets/images/activities/icons/Feature_icons/lunch_w.png" alt="Lunchpacket icoon">' : ''}
+                                <img src="assets/images/activities/icons/Feature_icons/${activity.type.toLowerCase()}_w.png" alt="${activity.type} icoon">
+                            </div>
+                            <img src="assets/images/activities/actif_banners/${activity.image_path}" alt="">
+                            <div class="information">
+                                <p class="title">${activity.title}</p>
+                                <div class="time">
+                                    <div class="start-datetime">
+                                        <img class="icon" src="assets/images/activities/icons/start_time.png" alt="">
+                                        ${activity.date.toLocaleDateString()} | 8:00
+                                    </div>
+                                    <div class="duration">
+                                        <img class="icon" src="assets/images/activities/icons/duration.png" alt="">
+                                        ${activity.duration}
+                                    </div>
+                                </div>
+                                <div class="location">
+                                    <img class="icon" src="assets/images/activities/icons/location.png" alt="">
+                                    ${activity.location}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    activitiesHTML += activityHTML;
+                }
+            });
+    
+            // Voeg activiteiten toe aan de container
+            activitiesContainer.innerHTML = activitiesHTML;
+        }
+    
+        window.onload = function() {
+            const startDate = new Date();
+            generateActivityDates(startDate);            
+            loadin_activities();
+        };
+    </script>
+    
+    
+</body>
+</html>
